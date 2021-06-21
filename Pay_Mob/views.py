@@ -5,10 +5,9 @@ from .forms import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 #development key
-# API_KEY = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBNE1UVTRMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkuTHZ1RXA1dmF1WWxfbEFJTkZXUHZKZnduSEM5WmcwSjRzcTlBcGdaUHNySWZNc0tWbktTQzhQZVpscGczc01NQlhlSXVrRVZnSlVROW1JQk05ckFXdkE="
 
 #production key
-API_KEY="ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6VXhNaUo5LmV5SndjbTltYVd4bFgzQnJJam94TURrd016Y3NJbTVoYldVaU9pSnBibWwwYVdGc0lpd2lZMnhoYzNNaU9pSk5aWEpqYUdGdWRDSjkudUFSbjRycG1SNUo5QXhqczlmbHQyYWx1T05BQ2luSXlYZGZQRTBtTFhZa1plT0toa09ncGRRMm1Mb2E0ZmM5SUoxNkF6S21KaHByZG1yMW5VTDQ1UkE="
+API_KEY = "ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6VXhNaUo5LmV5SndjbTltYVd4bFgzQnJJam94TURrd016Y3NJbTVoYldVaU9pSnBibWwwYVdGc0lpd2lZMnhoYzNNaU9pSk5aWEpqYUdGdWRDSjkudUFSbjRycG1SNUo5QXhqczlmbHQyYWx1T05BQ2luSXlYZGZQRTBtTFhZa1plT0toa09ncGRRMm1Mb2E0ZmM5SUoxNkF6S21KaHByZG1yMW5VTDQ1UkE="
 @login_required(login_url="home:login")
 def Home(request):   
     products=Products.objects.all()
@@ -54,9 +53,9 @@ def payment(request,id):
                 "delivery_needed": "false",
                 "amount_cents": orders.total_price()*100,
                 "currency": "EGP",
-              #  "expiration": 3600, this is for disable payment for this order for 3600 sec 
+               "expiration": 3600, #this is for disable payment for this order for 3600 sec 
             "merchant_order_id":orders.id,  # UNIQUE   
-            "integration_id":370027,  
+            "integration_id":405926,  
             "items": [ 
         {
             "name":items.name,
@@ -102,14 +101,14 @@ def payment(request,id):
         payment = accept.payment_key_request(NewOrderData) 
         print(payment)  
     except:
-        OrderData = {
+        OrderData = {    
                 "auth_token": auth_token, 
                 "delivery_needed": "false",
                 "amount_cents": orders.total_price()*100,
                 "currency": "EGP",
-              
+              "expiration": 3600,
             "order_id":orders.order_id ,  # UNIQUE   
-            "integration_id":370027,  
+            "integration_id":405926,  
                         "items": [
         {
             "name":items.name,
@@ -147,6 +146,7 @@ def payment(request,id):
             }
         payment = accept.payment_key_request(OrderData)
         print("here")
+        print(payment)
         orders.price=orders.total_price()
         orders.save()
     # try:
