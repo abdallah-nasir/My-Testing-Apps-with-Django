@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang ="en">
+<head>
+<meta charset= "UTF-8">
+<meta name="viewport" content ="width = device-width,initial-scale=1.0">
+<meta http-equiv ="X-UA-Compatible"  content ="ie=edge">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<title> Products </title>
+<style type="text/css">
+ul{
+  text-align: center;
+  list-style-type: none;
+}
+
+#checkout{
+ 
+ 
+}
+</style>
+</head>
+<body>
+
+
+<div class="container mt-5">
+    <div class="row">
+      <div class="col col-lg-12">
+        <h2>Total Price {{order.total_price}}</h2>
+
+      </div>
+       </div>
+<div class='row'>
+  <div class="col col-lg-12">
+    {% if messages %}
+<ul class="messages">
+{% for message in messages %}
+<li>
+
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+<strong>Success!</strong> {{ message }}
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
+</div>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+  </div>
+</div>
+  
+
+         <div class="row">
+          
+            {% for i in products %}
+          <form method="POST" class="col col-sm-6">
+            {% csrf_token %}
+                 <div class="col col-sm-6 col-lg-12">
+                  
+               <div class="card" style="width: 18rem; ">
+                   <img  src="{{i.image.url}}" class="card-img-top" alt="{{i.name|title}}">
+                   <div class="card-body">
+                     <h5 class="card-title">{{i.name|title}}</h5>
+                     <p class="card-text">{{i.details}}</p>
+                     <input name="name" value="{{i.id}}" type="hidden">
+                     <button  type="submit" class="btn btn-primary" {% if i in order.products.all %}disabled{% endif %}>Add</button>
+                   
+                     <button  type="button"  data-toggle="modal" data-target="#exampleModal-{{i.id}}" class="btn btn-danger"   {% if i not in order.products.all %}disabled{% endif %}>Remove</button>
+                    
+                   </div>
+                 </div>
+           </div>
+           </form>
+           <br>
+
+           <!-- Modal -->
+<div class="modal fade" id="exampleModal-{{i.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{i.name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     are you sure you want to delete {{i.name|title}}
+      </div>
+      <div class="modal-footer">
+        
+        <a href="{% url 'home:delete' id=i.id %}" type="button" class="btn btn-primary">Save changes</a>
+      </div>
+    </div>
+  </div>
+</div>
+           {% endfor %}
+
+         </div>
+     
+   
+             <a id="checkout" href="{% url 'home:payment' id=order.id %}" type="submit" class="btn btn-success">Procesed to Checkout</a>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+<html>
