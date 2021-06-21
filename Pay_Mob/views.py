@@ -162,7 +162,7 @@ def payment(request,id):
     #     payment = accept.payment_key_request(OrderData) 
     #     print("Here")
        
-    return render(request,"payment.html",{"payment":payment,"frame":249737})
+    return render(request,"payment.html",{"payment":payment,"frame":251513}) #production frame
 
 @login_required(login_url="home:login")
 def capture(request):
