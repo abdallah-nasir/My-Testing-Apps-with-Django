@@ -9,11 +9,20 @@ from django.contrib.auth.decorators import login_required
 #production key
 API_KEY = "ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6VXhNaUo5LmV5SndjbTltYVd4bFgzQnJJam94TURrd016Y3NJbTVoYldVaU9pSnBibWwwYVdGc0lpd2lZMnhoYzNNaU9pSk5aWEpqYUdGdWRDSjkudUFSbjRycG1SNUo5QXhqczlmbHQyYWx1T05BQ2luSXlYZGZQRTBtTFhZa1plT0toa09ncGRRMm1Mb2E0ZmM5SUoxNkF6S21KaHByZG1yMW5VTDQ1UkE="
 @login_required(login_url="home:login")
-def Home(request):   
+def Home(request): 
+    accept = AcceptAPI(API_KEY)  
     products=Products.objects.all()
-
     my_order,created=Order.objects.get_or_create(user=request.user,ordered=True,paid=False)
-
+    try:
+        trans=accept.inquire_transaction(merchant_order_id=my_order.id,order_id=my_order.order_id)
+        if trans["success"] == True:
+            my_order.transaction=trans["id"]
+            my_order.paid=True
+            my_order.save() 
+            print(trans)
+            return redirect(reverse("home:home"))
+    except:    
+        pass
     form=ProductForm(request.POST or None)
     if form.is_valid(): 
         instance=form.save(commit=False)
