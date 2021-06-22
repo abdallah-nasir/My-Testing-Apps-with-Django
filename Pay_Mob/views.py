@@ -23,7 +23,7 @@ def Home(request):
             my_order.paid=True
             my_order.save() 
             print(trans)
-            # return redirect(reverse("home:home"))
+            return redirect(reverse("home:home"))
     except:    
         pass
     form=ProductForm(request.POST or None)
@@ -57,7 +57,7 @@ def payment(request):
     try:
         orders=Order.objects.get(user=request.user,ordered=True,paid=False) 
     except:
-        return redirect(reverse("home:home")) 
+        pass 
     accept = AcceptAPI(API_KEY)
     auth_token = accept.retrieve_auth_token()
  
