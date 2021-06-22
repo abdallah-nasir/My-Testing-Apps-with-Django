@@ -12,8 +12,10 @@ API_KEY = "ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6VXhNaUo5LmV5SndjbTltYVd4bFgzQ
 def Home(request): 
     previous=Order.objects.filter(user=request.user,ordered=True,paid=True)
     accept = AcceptAPI(API_KEY)  
+
     products=Products.objects.all()
     my_order,created=Order.objects.get_or_create(user=request.user,ordered=True,paid=False)
+
     try:
         trans=accept.inquire_transaction(merchant_order_id=my_order.id,order_id=my_order.order_id)
         if trans["success"] == True:
@@ -21,7 +23,7 @@ def Home(request):
             my_order.paid=True
             my_order.save() 
             print(trans)
-            return redirect(reverse("home:home"))
+            # return redirect(reverse("home:home"))
     except:    
         pass
     form=ProductForm(request.POST or None)
@@ -51,10 +53,14 @@ def delete(request,id):
     order.products.remove(product)
     return redirect(reverse("home:home"))
 @login_required(login_url="home:login")
-def payment(request,id):
+def payment(request):
+    try:
+        orders=Order.objects.get(user=request.user,ordered=True,paid=False) 
+    except:
+        return redirect(reverse("home:home")) 
     accept = AcceptAPI(API_KEY)
     auth_token = accept.retrieve_auth_token()
-    orders=Order.objects.get(user=request.user,ordered=True,paid=False) 
+ 
     for i in orders.products.all():
         items=i
     try:

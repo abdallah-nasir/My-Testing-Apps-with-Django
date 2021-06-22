@@ -94,7 +94,46 @@ ul{
   </div>
 </div>
            {% endfor %}
+<div class="col mt-2 mb-2">
+  <h2 style="text-align:center;">Fake Card Data (Testing)</h2>
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">MasterCard</th>
+        <th scope="col">Visa</th>
 
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Card Number</th>
+        <td>5123456789012346</td>
+         <td>4987654321098769</td>
+      </tr>
+      <tr>
+        <th scope="row">Cardholder Name</th>
+        <td>Test Account</td>
+         <td>Test Account</td>
+      </tr>
+      <tr>
+        <th scope="row">Expiry Month</th>
+         <td>12</td>
+          <td>12</td>
+      </tr>
+      <tr>
+        <th scope="row">Expiry Year</th>
+         <td>25</td>
+         <td>25</td>
+      </tr>
+            <tr>
+        <th scope="row">CVV</th>
+        <td>123</td>
+        <td>123</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
          </div>
      
    <div class="row mt-5">
@@ -126,7 +165,7 @@ ul{
      </div>
    </div>
 
-             <a id="checkout" href="{% url 'home:payment' id=order.id %}" type="submit" class="btn btn-success">Procesed to Checkout</a>
+             <a id="checkout" href="{% url 'home:payment' %}" type="submit" class="btn btn-success">Procesed to Checkout</a>
 
 </div>
 
