@@ -97,7 +97,35 @@ ul{
 
          </div>
      
-   
+   <div class="row mt-5">
+ 
+     <div class="col">
+      <h2 style="text-align:center;">Your Previous orders</h2>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Order</th>
+            <th scope="col">Price</th>
+            <th scope="col">Transaction</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in previous %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{i.order_id}}</td>
+            <td>{{i.price}}</td>
+            <td>{{i.transaction}}</td>
+          </tr>
+       {% endfor %}
+        </tbody>
+      </table>
+      
+      
+     </div>
+   </div>
+
              <a id="checkout" href="{% url 'home:payment' id=order.id %}" type="submit" class="btn btn-success">Procesed to Checkout</a>
 
 </div>

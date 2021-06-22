@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 API_KEY = "ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6VXhNaUo5LmV5SndjbTltYVd4bFgzQnJJam94TURrd016Y3NJbTVoYldVaU9pSnBibWwwYVdGc0lpd2lZMnhoYzNNaU9pSk5aWEpqYUdGdWRDSjkudUFSbjRycG1SNUo5QXhqczlmbHQyYWx1T05BQ2luSXlYZGZQRTBtTFhZa1plT0toa09ncGRRMm1Mb2E0ZmM5SUoxNkF6S21KaHByZG1yMW5VTDQ1UkE="
 @login_required(login_url="home:login")
 def Home(request): 
+    previous=Order.objects.filter(user=request.user,ordered=True,paid=True)
     accept = AcceptAPI(API_KEY)  
     products=Products.objects.all()
     my_order,created=Order.objects.get_or_create(user=request.user,ordered=True,paid=False)
@@ -39,7 +40,7 @@ def Home(request):
             order.products.add(request.POST.get("name"))
             order.save()
             messages.success(request,"product added successfully")
-    context={"products":products,"form":form,"order":my_order}
+    context={"products":products,"form":form,"order":my_order,"previous":previous}
     return render(request,"products.html",context)  
    
 @login_required(login_url="home:login")
