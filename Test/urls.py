@@ -19,7 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include("Pay_Mob.urls",namespace="home")),
+    path('',include("Pay_Mob.urls",namespace="pay")),
+    path('sms/',include("SMS.urls",namespace="sms")),
 
 ]
 if settings.DEBUG:

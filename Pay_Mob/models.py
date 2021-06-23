@@ -16,7 +16,7 @@ class Products(models.Model):
 class Order(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,default=1)
     # name=models.CharField(max_length=50)
-    products=models.ManyToManyField(Products,null=True)
+    products=models.ManyToManyField(Products)
     price=models.PositiveIntegerField(default=0)
     order_id=models.PositiveIntegerField(default=0)
     ordered=models.BooleanField(default=True)

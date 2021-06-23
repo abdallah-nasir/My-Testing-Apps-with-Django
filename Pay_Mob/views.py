@@ -8,8 +8,12 @@ from django.contrib.auth.decorators import login_required
 
 #production key
 API_KEY = "ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6VXhNaUo5LmV5SndjbTltYVd4bFgzQnJJam94TURrd016Y3NJbTVoYldVaU9pSnBibWwwYVdGc0lpd2lZMnhoYzNNaU9pSk5aWEpqYUdGdWRDSjkudUFSbjRycG1SNUo5QXhqczlmbHQyYWx1T05BQ2luSXlYZGZQRTBtTFhZa1plT0toa09ncGRRMm1Mb2E0ZmM5SUoxNkF6S21KaHByZG1yMW5VTDQ1UkE="
-@login_required(login_url="home:login")
-def Home(request): 
+
+def home(request):
+    return render(request,"home.html")
+
+@login_required(login_url="pay:login")
+def Pay_Home(request): 
     previous=Order.objects.filter(user=request.user,ordered=True,paid=True)
     accept = AcceptAPI(API_KEY)  
 
@@ -23,7 +27,7 @@ def Home(request):
             my_order.paid=True
             my_order.save() 
             print(trans)
-            return redirect(reverse("home:home"))
+            return redirect(reverse("pay:pay_home"))
     except:    
         pass
     form=ProductForm(request.POST or None)
@@ -45,14 +49,14 @@ def Home(request):
     context={"products":products,"form":form,"order":my_order,"previous":previous}
     return render(request,"products.html",context)  
    
-@login_required(login_url="home:login")
+@login_required(login_url="pay:login")
 def delete(request,id):
     product=Products.objects.get(id=id)
     order=Order.objects.get(user=request.user,ordered=True,paid=False)
      
     order.products.remove(product)
-    return redirect(reverse("home:home"))
-@login_required(login_url="home:login")
+    return redirect(reverse("pay:pay_home"))
+@login_required(login_url="pay:login")
 def payment(request):
     try:
         orders=Order.objects.get(user=request.user,ordered=True,paid=False) 
@@ -180,7 +184,7 @@ def payment(request):
        
     return render(request,"payment.html",{"payment":payment,"frame":251513}) #production frame
 
-@login_required(login_url="home:login")
+@login_required(login_url="pay:login")
 def capture(request):
     accept = AcceptAPI(API_KEY)
     order=Order.objects.get(user=request.user,ordered=True,paid=False)
@@ -196,7 +200,7 @@ def capture(request):
             print("not identify")
         else:
             print(trans)
-    return redirect(reverse("home:home"))  
+    return redirect(reverse("pay:pay_home"))  
 from django.contrib.auth import login,authenticate
 
 def login_view(request):
@@ -209,7 +213,7 @@ def login_view(request):
             exists=check_user.check_password(password)
             if exists:
                 login(request,check_user)          
-                return redirect(reverse("home:home"))
+                return redirect(reverse("pay:pay_home"))
 
     context={}
     return render(request,"login.html",context)   
