@@ -21,6 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include("Pay_Mob.urls",namespace="pay")),
     path('sms/',include("SMS.urls",namespace="sms")),
+    path('ajax/',include("Ajax_Filter.urls",namespace="ajax")),
+
 
 ]
 if settings.DEBUG:

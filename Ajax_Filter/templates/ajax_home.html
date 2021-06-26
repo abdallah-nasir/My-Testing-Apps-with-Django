@@ -1,0 +1,104 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE HTML>
+<html lang ="en">
+<head>
+<meta charset= "UTF-8">
+<meta name="viewport" content ="width = device-width,initial-scale=1.0">
+<meta http-equiv ="X-UA-Compatible"  content ="ie=edge">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<title> Form </title>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style tpe="text/css">
+#id_type{
+    width:100%;
+}
+</style>
+
+</head>
+<body>
+<div class="container">
+      <h1 style="text-align:center;">Form</h1>
+    <div class="row mt-5">
+
+        <div class="col col-lg-6 offset-3">
+            <form  method="POST">
+                {% csrf_token %}
+
+            {{form|crispy}}
+     
+
+        </div>
+      </form>
+    </div>
+    <div class="row" id="id_test">
+
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    
+$("#id_type").change(function () {
+        const typeId = $(this).val();  // get the selected subject ID from the HTML dropdown list 
+        $.ajax({                       // initialize an AJAX request
+            type: "POST",
+            url: '{% url "ajax:ajax_home" %}',
+            data: {
+                'type': typeId,       // add the country id to the POST parameters
+                'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+               
+                let html_data2="<option value=''>---------</option>";
+                data.forEach(function (data) {
+                    html_data2 += `<option value='${data.id}'>${data.name}</option>`
+                });
+                $("#id_category").html(html_data2);
+              
+            }
+        });
+    });
+
+
+    $("#id_category").change(function () {
+        const categoryId = $(this).val();  // get the selected subject ID from the HTML dropdown list 
+        $.ajax({                       // initialize an AJAX request
+            type: "POST",
+            url: '{% url "ajax:ajax_home" %}',
+            data: {
+                'category': categoryId,       // add the country id to the POST parameters
+                'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+                let html_data = '';
+                data.forEach(function (data) {
+                    html_data += `
+                 
+                    <div class="col mt-5">
+                        <div class="card" style="width: 18rem;">
+                            <img src="${data.image.url}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">${data.name}</h5>
+                              <p class="card-text"></p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                          </div>
+                        </div>
+                    
+                      `
+                });
+                $("#id_test").html(html_data); // replace the contents of the topic input with the data that came from the server
+            }
+        });
+    });
+    
+</script>
+
+
+
+
+</body>
+<html>

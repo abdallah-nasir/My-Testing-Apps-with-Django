@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     #my apps
     "Pay_Mob",
     "SMS",
+    "Ajax_Filter",
     "crispy_forms"
 ]
 
@@ -82,31 +83,31 @@ WSGI_APPLICATION = 'Test.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': str(BASE_DIR / 'db.sqlite3'),
-#     }
-# }
 DATABASES = {
-
     'default': {
-
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-        'NAME': "d8dm3bnqc3trn5",
-
-        'USER': 'qafrvpnegiqwus',
-
-        'PASSWORD': '455680adb7a7cfef5c07635f614217b33dc46b81fc4bf7fe46482d04f45fa442',
-
-        'HOST': 'ec2-3-218-71-191.compute-1.amazonaws.com',
-
-        'PORT': '5432',
-
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
-
 }
+# DATABASES = {
+
+#     'default': {
+
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+#         'NAME': "d8dm3bnqc3trn5",
+
+#         'USER': 'qafrvpnegiqwus',
+
+#         'PASSWORD': '455680adb7a7cfef5c07635f614217b33dc46b81fc4bf7fe46482d04f45fa442',
+
+#         'HOST': 'ec2-3-218-71-191.compute-1.amazonaws.com',
+
+#         'PORT': '5432',
+
+#     }
+
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
