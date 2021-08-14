@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     "Pay_Mob",
     "SMS",
     "Ajax_Filter",
-    "crispy_forms"
+    "crispy_forms",
+    "Wallet",
+    #3rd party
+   'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -77,36 +80,43 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'Test.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / 'db.sqlite3'),
-    }
-}
 # DATABASES = {
-
 #     'default': {
-
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-#         'NAME': "d8dm3bnqc3trn5",
-
-#         'USER': 'qafrvpnegiqwus',
-
-#         'PASSWORD': '455680adb7a7cfef5c07635f614217b33dc46b81fc4bf7fe46482d04f45fa442',
-
-#         'HOST': 'ec2-3-218-71-191.compute-1.amazonaws.com',
-
-#         'PORT': '5432',
-
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': str(BASE_DIR / 'db.sqlite3'),
 #     }
+# }
 
+DATABASES = {
+
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': "d2i6etm738i2q2",
+
+        'USER': 'vxvnouddrppdav',
+
+        'PASSWORD': '3bbec2546f68e755a359caa69e7e8d46a9c797814faa3d18c137390b1fd20b19',
+
+        'HOST': 'ec2-54-162-119-125.compute-1.amazonaws.com',
+
+        'PORT': '5432',
+
+    }
+
+}
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAuthenticated',
+#     ]
 # }
 
 # Password validation

@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 #development key
 
 #production key
-API_KEY = "ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6VXhNaUo5LmV5SndjbTltYVd4bFgzQnJJam94TURrd016Y3NJbTVoYldVaU9pSnBibWwwYVdGc0lpd2lZMnhoYzNNaU9pSk5aWEpqYUdGdWRDSjkudUFSbjRycG1SNUo5QXhqczlmbHQyYWx1T05BQ2luSXlYZGZQRTBtTFhZa1plT0toa09ncGRRMm1Mb2E0ZmM5SUoxNkF6S21KaHByZG1yMW5VTDQ1UkE="
+API_KEY = "="
 
 def home(request):
     return render(request,"home.html")

@@ -19,11 +19,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include("Pay_Mob.urls",namespace="pay")),
-    path('sms/',include("SMS.urls",namespace="sms")),
-    path('ajax/',include("Ajax_Filter.urls",namespace="ajax")),
+    # path('',include("Pay_Mob.urls",namespace="pay")),
+    # path('sms/',include("SMS.urls",namespace="sms")),
+    # path('ajax/',include("Ajax_Filter.urls",namespace="ajax")),
+    path('wallet/',include("Wallet.urls",namespace="wallet")),
 
-
+  
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

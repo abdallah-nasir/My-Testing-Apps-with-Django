@@ -4,10 +4,10 @@ from twilio.rest import Client
 from twilio.jwt.access_token import AccessToken
 # Create your views here.
 
-account_sid = "ACab8ff186f017705b6fda2e5653ecac78"
-auth_token ="0378c454e21e7d2e0142b98e8bf0f5e4"
-api_key = 'SK960f371540ad29650bdad0134700427c'
-api_secret = 'XtZVynitQsW2i2oBe8pCNS85oE2QnALz'
+account_sid = ""
+auth_token =""
+api_key = ''
+api_secret = ''
 import json
 def home(request):
     # Create access token with credentials
