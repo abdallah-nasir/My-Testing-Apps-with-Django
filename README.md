@@ -1,5 +1,4 @@
 # My-Testing-Apps-with-Django
-# wallet system 
 - clone this repo 
 - open cmd and run those commands 
 - python manage.py makemigrations
